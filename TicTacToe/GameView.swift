@@ -31,22 +31,11 @@ struct GameView: View {
                 }
             }
             
-            if let winner = game.winner {
-                Button{
-                    game.clean()
-                } label: {
-                    ZStack {
-                        Rectangle()
-                            .fill(.white)
-                            .frame(width: 1000, height: 200)
-                            .border(.green, width: 10)
-                            .rotationEffect(.degrees(20))
-                        
-                        Text("\(game.getWinner()) Won!!!")
-                            .font(.largeTitle)
-                    }
-                }
+            if game.winner != nil {
+                NotificationStrip(game: game, notification: "\(game.getWinner()) Won!!!", color: .green)
                 
+            } else if game.freeSpaces == 0 {
+                NotificationStrip(game: game, notification: "There is no winner", color: .yellow)
             }
         }
     }

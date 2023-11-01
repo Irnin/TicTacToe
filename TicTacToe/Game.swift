@@ -17,9 +17,16 @@ class Game: ObservableObject {
     // 1 2 3
     // 4 5 6
     // 7 8 9
-    @Published var board: [[Figures?]] = Array(repeating: Array(repeating: nil, count: 3), count: 3)
+    @Published var board: [[Figures?]] = Array(repeating: Array(repeating: nil, count: 3), count: 3) {
+        
+        didSet {
+            freeSpaces -= 1
+        }
+    }
     @Published var winner: Figures? = nil
+    @Published var pass: Bool = false
     var currentPlayer: Figures = .cross
+    var freeSpaces: Int = 9
     
     // Public functions
     
@@ -39,6 +46,8 @@ class Game: ObservableObject {
                 board[i][j] = nil
             }
         }
+        
+        freeSpaces = 9
     }
     
     func getFigure(of id: Int) -> Figures? {
@@ -100,10 +109,30 @@ class Game: ObservableObject {
             
             checkWin()
             swapPlayer()
+            
+            if freeSpaces == 0 {
+                
+            }
         }
     }
     
     // Private functions
+    
+//    private var freeSpaces: Int {
+//        get {
+//            var counter = 0
+//            
+//            for row in board {
+//                for square in row {
+//                    if square == nil {
+//                        counter += 1
+//                    }
+//                }
+//            }
+//        }
+//        
+//        return counter
+//    }
     
     private func swapPlayer() {
         if currentPlayer == .circle {
