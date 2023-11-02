@@ -14,10 +14,7 @@ struct ContentView: View {
                 .font(.largeTitle)
             
             GameView()
-            
-            
         }
-        .padding()
     }
 }
 

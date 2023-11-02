@@ -23,8 +23,26 @@ class Game: ObservableObject {
             freeSpaces -= 1
         }
     }
-    @Published var winner: Figures? = nil
+    @Published var winner: Figures? = nil {
+        didSet {
+            if let winner = winner {
+                switch(winner) {
+                case .circle:
+                    oWins += 1
+                case .cross:
+                    xWins += 1
+                }
+            }
+            
+            print("\(xWins), \(oWins)")
+        }
+        
+        
+    }
     @Published var pass: Bool = false
+    @Published var oWins = 0
+    @Published var xWins = 0
+    
     var currentPlayer: Figures = .cross
     var freeSpaces: Int = 9
     
@@ -39,6 +57,7 @@ class Game: ObservableObject {
     }
     
     func clean() {
+        
         winner = nil
         
         for i in 0...2 {
@@ -117,22 +136,6 @@ class Game: ObservableObject {
     }
     
     // Private functions
-    
-//    private var freeSpaces: Int {
-//        get {
-//            var counter = 0
-//            
-//            for row in board {
-//                for square in row {
-//                    if square == nil {
-//                        counter += 1
-//                    }
-//                }
-//            }
-//        }
-//        
-//        return counter
-//    }
     
     private func swapPlayer() {
         if currentPlayer == .circle {

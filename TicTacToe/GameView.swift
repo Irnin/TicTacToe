@@ -13,6 +13,59 @@ struct GameView: View {
     var body: some View {
         
         ZStack {
+            // Display player tur
+            if game.currentPlayer == .circle {
+                Image(systemName: "circle")
+                    .font(.system(size: 300))
+                    .offset(x: -100, y: -100)
+                
+            } else {
+                Image(systemName: "cross.fill")
+                    .font(.system(size: 300))
+                    .rotationEffect(.degrees(45))
+                    .offset(x: 100, y: 100)
+            }
+            
+            // Display score view
+            VStack {
+                Spacer()
+                
+                ZStack {
+                    Rectangle()
+                        .frame(height: 120)
+                        .lineLimit(nil)
+                        .shadow(color: .blue, radius: 100, x: 0, y: -100)
+                        .ignoresSafeArea()
+                    
+                    HStack {
+                        HStack {
+                            Image(systemName: "circle")
+                            
+                            Text(": \(game.oWins)")
+                        }
+                        .font(.system(size: 70))
+                        .foregroundStyle(.blue)
+                        .offset(x: -20)
+                        .zIndex(1)
+                        
+                        Spacer()
+                        
+                        HStack {
+                            Text("\(game.xWins) :")
+                            
+                            Image(systemName: "cross.fill")
+                                .rotationEffect(.degrees(45))
+                            
+                        }
+                        .font(.system(size: 70))
+                        .foregroundStyle(.blue)
+                        .offset(x: 20)
+                        .zIndex(1)
+                    }
+                }
+            }
+            
+            // Display board
             VStack {
                 HStack {
                     SquareView(game: game, id: 1)
@@ -31,6 +84,7 @@ struct GameView: View {
                 }
             }
             
+            // Display notification
             if game.winner != nil {
                 NotificationStrip(game: game, notification: "\(game.getWinner()) Won!!!", color: .green)
                 
@@ -38,8 +92,8 @@ struct GameView: View {
                 NotificationStrip(game: game, notification: "There is no winner", color: .yellow)
             }
         }
+        .ignoresSafeArea()
     }
-        
 }
 
 #Preview {

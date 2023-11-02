@@ -14,7 +14,6 @@ struct NotificationStrip: View {
     
     var body: some View {
         
-        
         Button{
             game.clean()
         } label: {
@@ -28,6 +27,9 @@ struct NotificationStrip: View {
                 
                 Text(notification)
                     .font(.largeTitle)
+                    .rotationEffect(.degrees(20))
+                    .foregroundColor(color)
+                    .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
             }
         }
     }
@@ -37,5 +39,5 @@ struct NotificationStrip: View {
     let game = Game()
     let notification = "Lorem Ipsum"
     
-    return NotificationStrip(game: game, notification: notification, color: .red)
+    return NotificationStrip(game: game, notification: notification, color: .yellow)
 }

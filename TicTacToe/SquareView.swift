@@ -12,7 +12,7 @@ struct SquareView: View {
     @State var id: Int = 0
     
     var body: some View {
-        Button{
+        return Button{
             game.setFigure(of: id)
         } label: {
             ZStack {
